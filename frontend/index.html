@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mediasoup 1-to-1 WS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    video {
+      width: 400px;
+      height: 300px;
+      background: #000;
+      margin: 10px;
+      border: 2px solid #333;
+      object-fit: cover;
+      display: block;
+    }
+    video:empty {
+      background: #333;
+    }
+    video[src], video[srcObject] {
+      border-color: #28a745;
+    }
+    #remoteVideo {
+      background: linear-gradient(45deg, #1a1a1a 25%, #2a2a2a 25%, #2a2a2a 50%, #1a1a1a 50%, #1a1a1a 75%, #2a2a2a 75%, #2a2a2a);
+      background-size: 20px 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+    #status {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 4px;
+    }
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    #localContainer, #remoteContainer {
+      margin: 10px;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const radios = document.querySelectorAll('input[name="mode"]');
+      const localContainer = document.getElementById('localContainer');
+      const remoteContainer = document.getElementById('remoteContainer');
+      
+      radios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const mode = e.target.value;
+          if (mode === 'send') {
+            localContainer.style.display = 'block';
+            remoteContainer.style.display = 'none';
+          } else if (mode === 'receive') {
+            localContainer.style.display = 'none';
+            remoteContainer.style.display = 'block';
+          } else {
+            localContainer.style.display = 'block';
+            remoteContainer.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <h2>Mediasoup 1-to-1 WebSocket Example</h2>
+  <div id="status">Status: Not connected</div>
+  <div>
+    <label>
+      <input type="radio" name="mode" value="both" checked> Send & Receive
+    </label>
+    <label>
+      <input type="radio" name="mode" value="send"> Send Only
+    </label>
+    <label>
+      <input type="radio" name="mode" value="receive"> Receive Only
+    </label>
+  </div>
+  <div class="video-container">
+    <div id="localContainer">
+      <h3>Local Video</h3>
+      <video id="localVideo" autoplay muted playsinline></video>
+    </div>
+    <div id="remoteContainer">
+      <h3>Remote Video</h3>
+      <video id="remoteVideo" autoplay playsinline></video>
+    </div>
+  </div>
+  <button id="startBtn">Start</button>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

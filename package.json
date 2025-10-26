@@ -1,0 +1,15 @@
+{
+  "name": "mediasoup-sfu",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mediasoup": "^3.19.6",
+    "mediasoup-client": "^3.17.1",
+    "socket.io": "^4.8.1"
+  }
+}

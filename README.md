@@ -16,12 +16,6 @@
    ↓
 6. Sender requests transport creation
    Sender → Server: { type: "createWebRtcTransport", data: { purpose: "send" } }
-```
-
----
-
-### **Phase 2: Transport Creation (WebRTC Setup)**
-```
 7. Server creates WebRTC transport
    transport = router.createWebRtcTransport({
      listenIps: [{ ip: "127.0.0.1", announcedIp: "127.0.0.1" }],
@@ -41,12 +35,6 @@
    ↓
 9. Sender creates sendTransport
    sendTransport = device.createSendTransport({...transportParams})
-```
-
----
-
-### **Phase 3: Media Capture & Production**
-```
 10. Sender requests camera/microphone access
     stream = await getUserMedia({ audio: true, video: true })
     ↓
@@ -91,14 +79,7 @@
     ----------------
     (Same flow, but kind: "video", codec: VP8)
     Server → Sender: { type: "produce", data: { id: "producer-video-456" } }
-```
-
----
-
-### **Phase 4: Receiver Joins**
-
 #### **Receiver Tab clicks "Start" (Receive Mode)**
-```
 15. Receiver connects via WebSocket
     socketId: "def456"
     ↓
@@ -113,12 +94,6 @@
     ↓
 19. Receiver creates recvTransport
     recvTransport = device.createRecvTransport({...})
-```
-
----
-
-### **Phase 5: Notifying About Existing Producers**
-```
 20. Server detects receiver's transport is ready
     ↓
 21. Server loops through all existing producers
@@ -142,12 +117,6 @@
         }
       }
     }
-```
-
----
-
-### **Phase 6: Consuming Media**
-```
 22. Receiver receives "newProducer" notification
     ↓
 23. Receiver requests to consume
